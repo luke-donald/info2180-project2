@@ -2,6 +2,7 @@
 //INFO2180 Project 2
 //ID No. 620103232
 
+//end-of-game notification was added as the extra feature for this project.
 
 window.onload = function() {
 
@@ -78,6 +79,42 @@ window.onload = function() {
 
 		//test for win conditions using winningState array
 
+		var pass = 0;
+
+		for (var i = 0; i < puzzlepiece.length; i++) {
+
+			if (puzzlepiece[i].style.left + puzzlepiece[i].style.top == winningState[i]){
+
+				//pass state remains as true
+			} else {
+
+				//pass state changes to false
+				pass++;
+			}
+		}
+
+		if (pass == 0){
+			//if the puzzle is in it's winning state, then...
+			//change header text to notify user of the win
+			//change it's font, colour, and background colour
+			//also change the board so that all borders are red and all text is green
+			//this is similar to the indication given when a puzzle piece is highlighted as a movable piece
+
+			var temp = document.getElementsByTagName("h1")[0];
+
+			temp.textContent = "BING BING BING !!! CONGRATULATIONS !!!";
+			temp.style.color = "#006600";
+			temp.style.backgroundColor = "red";
+			temp.style.fontFamily = "Comic Sans MS";
+
+			for (var i = 0; i < puzzlepiece.length; i++) {
+
+				puzzlepiece[i].style.border = "2px solid red";
+				puzzlepiece[i].style.color = "#006600";
+				puzzlepiece[i].style.textDecoration = "underline";
+			}
+		}
+
 	}
 
 	//function used to test if the coordinates of a certain puzzle piece allow that puzzle piece to be moved into a blank space or not
@@ -85,6 +122,10 @@ window.onload = function() {
 
 		var tempX = parseInt(coordx);
 		var tempY = parseInt(coordy);
+
+		//absolute values will result in answer always being positive, so no discrepancy between + and - 100
+		//Basically checks if the tile can be moved to the left or right
+		//afterwards, checks if it can be moved up or down if it could not previously be moved
 
 		if (Math.abs(emptyX - tempX) == 100) {
 			if (Math.abs(emptyY - tempY) == 0) {
