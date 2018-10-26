@@ -37,7 +37,8 @@ window.onload = function() {
 
 
 			puzzlepiece[i].addEventListener("click", movePiece);
-			//puzzlepiece[i].addEventListener("mouseover", hoverValidCheck);
+			puzzlepiece[i].addEventListener("mouseover", hoverValidCheck); //used to add movable piece class
+			puzzlepiece[i].addEventListener("mouseout", hoverValidCheck2); //used to remove movable piece class
 
 			//stores the completed state for puzzle
 			winningState[i] = colPosn + rowPosn;
@@ -66,6 +67,8 @@ window.onload = function() {
 		}
 	}
 
+	//this function uses a helper function to test the validity of a move and then perform it.
+	//it then checks if the player has won the game
 	function movePiece(event){
 
 		//run emptyPieceSwap to make the actual move
@@ -75,6 +78,7 @@ window.onload = function() {
 
 	}
 
+	//function used to test if the coordinates of a certain puzzle piece allow that puzzle piece to be moved into a blank space or not
 	function testForAvailableMove(coordx, coordy){
 
 		var tempX = parseInt(coordx);
@@ -93,6 +97,23 @@ window.onload = function() {
 		}
 
 		return false;
+	}
+
+	//function used to add movable piece class for formatting purposes
+	function hoverValidCheck(event){
+
+		if (testForAvailableMove(this.style.left, this.style.top)){
+
+			this.classList.add("movablepiece");
+
+		}
+
+	}
+
+	//function used to remove movable piece class for formatting purposes
+	function hoverValidCheck2(event){
+
+		this.classList.remove("movablepiece");
 	}
 
 
