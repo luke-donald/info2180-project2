@@ -16,6 +16,8 @@ window.onload = function() {
 
 	startBoard();
 
+	shufflebutton.onclick = shuffleBoard;
+
 	// displays the playing board correctly on opening the web page
 	function startBoard(){
 
@@ -114,6 +116,37 @@ window.onload = function() {
 	function hoverValidCheck2(event){
 
 		this.classList.remove("movablepiece");
+	}
+
+	//function used to shuffle board at the click of the button
+	function shuffleBoard(){
+
+		//This function will perform the following steps in order to shuffle the board
+		//Step 1 - create an empty, temporary array
+		//Step 2 - store all movable pieces in that array
+		//Step 3 - select a random piece in that array
+		//Step 4 - move that piece into the empty space on the board
+		//Step 5 - declare the array as empty again
+		//Step 6 - repeat the process a few hundred times
+
+		var count = 0;
+
+		while(count != 600){
+
+			var temporaryArray = [];
+
+			for (var i = 0; i < puzzlepiece.length; i++){
+
+				if (testForAvailableMove(puzzlepiece[i].style.left, puzzlepiece[i].style.top)){
+
+					temporaryArray.push(puzzlepiece[i]);
+				}
+			}
+
+			var n = temporaryArray.length;
+			emptyPieceSwap(temporaryArray[Math.floor(Math.random() * n)]);
+			count++;
+		}
 	}
 
 
